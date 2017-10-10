@@ -17,6 +17,7 @@ public class Practice {
     public static void main(String[] args) {
         sum();
         max();
+        join();
     }
 
     public static void max() {
@@ -32,6 +33,16 @@ public class Practice {
                         Dish::getCalories,
                         Integer::sum));
 
-        System.out.println(totalCalories);
+        System.out.println("sum result = " + totalCalories);
+    }
+
+    public static void join() {
+        String result = menu.stream()
+                .map(Dish::getName)
+                .collect(
+                        reducing((s1, s2) -> s1.join(",", s2)))
+                .get();
+
+        System.out.println("joining result = " + result);
     }
 }
