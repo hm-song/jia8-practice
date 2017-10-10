@@ -3,8 +3,10 @@ package hm.song.stduy.ch6;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
+import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.reducing;
 
 /**
@@ -18,12 +20,13 @@ public class Practice {
         sum();
         max();
         join();
+        grouping();
     }
 
     public static void max() {
         Optional<Dish> max = menu.stream().max(Comparator.comparing(Dish::getCalories));
         if (max.isPresent()) {
-            System.out.println("max = " + max.get().toString());
+            System.out.println("max result = " + max.get().toString());
         }
     }
 
@@ -44,5 +47,12 @@ public class Practice {
                 .get();
 
         System.out.println("joining result = " + result);
+    }
+
+    public static void grouping() {
+        Map<Dish.Type, List<Dish>> grouped = menu.stream()
+                .collect(
+                        groupingBy(Dish::getType));
+        System.out.println("grouping result = " + grouped);
     }
 }
